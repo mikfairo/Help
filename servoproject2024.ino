@@ -12,7 +12,7 @@ const int LED5 = 9;
 int LEDState = LOW;
 int buttonState = LOW;
 int buttonState2 = LOW;
-int lastButtonState = LOW;
+int lastButtonState2 = LOW;
 int servoState = LOW;
 int lastServoButtonState = LOW;
 
@@ -85,10 +85,10 @@ void loop() {
   }
 
   // Toggle LED state when buttonPin2 is pressed
-  if (buttonState2 == HIGH && lastButtonState == LOW) {
+  if (buttonState2 == HIGH && lastButtonState2 == LOW) {
     LEDState = !LEDState;
   }
-  lastButtonState = buttonState2;
+  lastButtonState2 = buttonState2;
 
   if (LEDState == HIGH) {
     digitalWrite(LED, HIGH);
@@ -103,6 +103,9 @@ void loop() {
     digitalWrite(LED4, LOW);
     digitalWrite(LED5, LOW);
   }
+
+  delay(50); // Add a small delay to debounce the buttons
+}
 
   delay(50); // Add a small delay to debounce the buttons
 }
