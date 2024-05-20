@@ -13,6 +13,8 @@ int LEDState = LOW;
 int buttonState = LOW;
 int buttonState2 = LOW;
 int lastButtonState = LOW;
+int servoState = LOW;
+int lastServoButtonState = LOW;
 
 void setup() {
   pinMode(buttonPin, INPUT);
@@ -70,8 +72,14 @@ void loop() {
   buttonState = digitalRead(buttonPin);
   buttonState2 = digitalRead(buttonPin2);
 
-  // Move servo with a random sequence when buttonPin is pressed
-  if (buttonState == HIGH) {
+  // Toggle servo state when buttonPin is pressed
+  if (buttonState == HIGH && lastServoButtonState == LOW) {
+    servoState = !servoState;
+  }
+  lastServoButtonState = buttonState;
+
+  // Move servo if it is in the on state
+  if (servoState == HIGH) {
     int sequence = random(1, 6); // Randomly select a sequence from 1 to 5
     execute_sequence(sequence);
   }
